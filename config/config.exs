@@ -18,6 +18,14 @@ config :api_graphql, ApiGraphqlWeb.Endpoint,
   pubsub_server: ApiGraphql.PubSub,
   live_view: [signing_salt: "yV+QlFQU"]
 
+
+config :api_graphql,
+                 username: System.get_env("username"),
+                 password: System.get_env("password")
+
+
+
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

@@ -2,8 +2,8 @@ use Mix.Config
 
 # Configure your database
 config :api_graphql, ApiGraphql.Repo,
-  username: "juba",
-  password: "Nadjib11051963",
+  username: System.get_env("username"),
+  password: System.get_env("password"),
   database: "gp",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
