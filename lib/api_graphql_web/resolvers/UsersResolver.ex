@@ -87,8 +87,7 @@ defmodule ApiGraphqlWeb.Resolvers.UsersResolver do
 
   def token_get(id) do
     token = Phoenix.Token.sign(ApiGraphqlWeb.Endpoint, "user auth", id)
-    IO.puts "here token"
-    IO.inspect token
+
     {:ok ,token}
   end
 

@@ -1,8 +1,10 @@
 defmodule ApiGraphqlWeb.Router do
   use ApiGraphqlWeb, :router
   alias ApiGraphqlWeb.Absinthe.Plug
+  alias ApiGraphqlWeb.AbsintheAuthContext
   alias ApiGraphqlWeb.AbsinthePlug
   alias AbsinthePlug.Schema.AuthSchema
+  alias AbsinthePlug.AbsintheAuthContext
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -10,16 +12,18 @@ defmodule ApiGraphqlWeb.Router do
   pipeline :api_protected do
 
     plug :accepts, ["json"]
-    plug ApiGraphqlWeb.Auth_plug
+    plug ApiGraphqlWeb.AbsintheAuthContext
+#    plug ApiGraphqlWeb.Auth_plug
 
   end
 
 
   scope "/" do
-    pipe_through :api #change to api_protected in prodution
+    pipe_through :api_protected #change to api_protected in prodution
 
     forward "/graphiql", Absinthe.Plug.GraphiQL,
-            schema: ApiGraphqlWeb.Schema.AuthSchema,
+            schema: ApiGraphqlWeb.Schema.UserSchema,
+
             interface: :playground,
             context: %{pubsub: ApiGraphqlWeb.Endpoint}
 
@@ -29,7 +33,7 @@ defmodule ApiGraphqlWeb.Router do
     pipe_through :api
 
     forward "/", ApiGraphqlWeb.AbsinthePlug,
-            schema: ApiGraphqlWeb.Schema.UserSchema,
+            schema: ApiGraphqlWeb.Schema.AuthSchema,
             interface: :playground,
             context: %{pubsub: ApiGraphqlWeb.Endpoint}
 

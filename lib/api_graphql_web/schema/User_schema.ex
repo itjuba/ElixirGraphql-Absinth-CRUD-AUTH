@@ -1,7 +1,7 @@
 defmodule ApiGraphqlWeb.Schema.UserSchema do
   use Absinthe.Schema
-  import_types ApiGraphqlWeb.InputObjects.Types
   alias ApiGraphqlWeb.Resolvers.UsersResolver
+  import_types ApiGraphqlWeb.InputObjects.Types
 
 
 
@@ -38,7 +38,7 @@ defmodule ApiGraphqlWeb.Schema.UserSchema do
     field :auth, non_null((:users)) do
       arg :email, non_null(:string)
       arg :password, non_null(:string)
-      resolve(&Resolvers.UsersResolver.auth/3)
+      resolve(&UsersResolver.auth/3)
     end
 
 
